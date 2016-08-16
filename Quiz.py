@@ -14,19 +14,30 @@ AnswersList = [
         , [ "cry" , "over" , "happened" , "Suess" ] ]
 
 def GetDifficulty():
+    """ Asks the user for input then returns the index number of 
+        that difficulty in the difficulty list, if it doesn't find
+        it then it repeats the process. 
+        Argument : void
+        return : Difficulty index number """
+
     Input = raw_input("What difficulty? Easy, Medium, or Hard \n")
 
-    CurrentDifficulty = -1
-    while CurrentDifficulty == -1:
-        try:
-            CurrentDifficulty = Difficulties.index(Input)
-        except ValueError:
-            CurrentDifficulty = -1
+    CurrentDifficulty = 0
+    while not Input in Difficulties:
             Input = raw_input("I'm sorry I didn't get that difficulty, can you try again? \n")
 
     return CurrentDifficulty
 
 def Quiz():
+    """ Asks the user for input for their difficulty then uses that index to
+        get the type of answers and sentence to use. Then it prints the SentencePlace
+        to the screen and asks the user to fill in each blank. When the index is less
+        than the answers length and it equals one of our sentence place then we prompt
+        for input. After the program ends we prompt one more time to play again then 
+        we call this function.
+        Argument : void
+        return : void """
+
     Difficulty = GetDifficulty()
     Answers = AnswersList[Difficulty]
     Sentence = SentencesList[Difficulty]
@@ -38,7 +49,7 @@ def Quiz():
     print(Sentence)
 
     for Word in SplitSentence:
-        if Index < 4 and Word == SentencePlace[Index]:
+        if Index < len(SentencePlace) and Word == SentencePlace[Index]:
             Input = raw_input("What goes at " + SentencePlace[Index] + " \n")
             while Input != Answers[Index]:
                 Input = raw_input("Try again \n")
